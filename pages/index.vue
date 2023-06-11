@@ -2,9 +2,14 @@
     <div>
         <MainSection
             title="Home"
-            :loading="false"
+            :loading="loading"
         >
             Content
         </MainSection>
     </div>
 </template>
+
+<script setup>
+const loading = ref(false);
+
+</script>
