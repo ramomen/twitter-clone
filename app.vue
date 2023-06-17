@@ -3,7 +3,9 @@
     <div class="bg-white dark:bg-dim-900 dark:text-white">
       <!-- App -->
 
-      <div v-if="user" class="min-h-full">
+      <LoadingPage v-if="isAuthLoading" />
+
+      <div v-else-if="user" class="min-h-full">
         <div
           class="grid grid-cols-12 mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:gap-5"
         >
@@ -38,6 +40,14 @@
 <script setup>
 const isDark = ref(false);
 
-const { useAuthUser } = useAuth();
+const { useAuthUser, initAuth, useAuthLoading } = useAuth();
+
+const isAuthLoading = useAuthLoading();
+
 const user = useAuthUser();
+
+// it's important to call initAuth before mounting the app
+onBeforeMount(() => {
+  initAuth();
+});
 </script>

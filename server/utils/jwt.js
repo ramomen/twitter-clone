@@ -26,9 +26,28 @@ export const generateTokens = (user) => {
   };
 };
 
+export const decodeRefreshToken = (token) => {
+  const config = useRuntimeConfig();
+
+  try {
+    return jwt.verify(token, config.jwtRefreshToken);
+  } catch (error) {
+    return null;
+  }
+};
+
+export const decodeAccessToken = (token) => {
+  const config = useRuntimeConfig();
+  try {
+    return jwt.verify(token, config.jwtAccessToken);
+  } catch (error) {
+    return null;
+  }
+};
+
 export const sendRefreshToken = (event, token) => {
   setCookie(event, "refresh_token", token, {
     httpOnly: true,
-    path: "/api/auth/refresh-token",
+    path: "/api/auth/refresh",
   });
 };
