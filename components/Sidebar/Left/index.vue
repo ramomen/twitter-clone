@@ -26,7 +26,7 @@
       </SidebarTab>
       <SidebarTab>
         <template #icon>
-          <BellIcon/>
+          <BellIcon />
         </template>
         <template #name> Notifications </template>
       </SidebarTab>
@@ -60,6 +60,18 @@
         </template>
         <template #name> More </template>
       </SidebarTab>
+      <div class="hidden xl:block">
+        <UIButton liquid size="lg">
+          <span class="font-bold"> Tweet </span>
+        </UIButton>
+      </div>
+      <div class="block xl:hidden">
+        <UIButton>
+          <div class="w-6 h-6 font-bold">
+            <PencilIcon />
+          </div>
+        </UIButton>
+      </div>
     </div>
   </div>
 </template>
@@ -73,6 +85,7 @@ import {
   DocumentIcon,
   UserIcon,
   DotsCircleHorizontalIcon,
+  PencilIcon
 } from "@heroicons/vue/outline";
 const { defaultTransaction } = useTailwindConfig();
 </script>

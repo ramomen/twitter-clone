@@ -13,7 +13,23 @@ export default () => {
     });
   };
 
+  const getHomeTweets = () => {
+    return new Promise((resolve, reject) => {
+      try {
+        const response = useFetchApi("/api/tweets", {
+          method: "GET",
+        });
+
+        console.log(response);
+        resolve(response);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
   return {
     postTweet,
+    getHomeTweets,
   };
 };
