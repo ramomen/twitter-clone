@@ -5,13 +5,13 @@ export const tweetTransformer = (tweet) => {
   return {
     id: tweet.id,
     text: tweet.text,
-    mediaFiles: tweet.mediaFiles
+    mediaFiles: !!tweet.mediaFiles
       ? tweet.mediaFiles.map(mediaFilesTransformer)
       : [],
     author: !!tweet.author ? userTransformer(tweet.author) : null,
     replies: !!tweet.replies ? tweet.replies.map(tweetTransformer) : [],
     replyTo: !!tweet.replyTo ? tweetTransformer(tweet.replyTo) : null,
-    repliesCount: !!tweet.repliesCount ? tweet.replies.length : 0,
+    repliesCount: !!tweet.replies ? tweet.replies.length : 0,
     postedAtHuman: human(tweet.createdAt),
   };
 };

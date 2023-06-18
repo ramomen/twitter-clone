@@ -2,7 +2,12 @@ import UrlPattern from "url-pattern";
 import { decodeAccessToken } from "../utils/jwt";
 import { getUserById } from "../db/user.js";
 export default defineEventHandler(async (event) => {
-  const endpoints = ["/api/auth/user", "/api/user/tweets", "/api/tweets"];
+  const endpoints = [
+    "/api/auth/user",
+    "/api/user/tweets",
+    "/api/tweets",
+    "/api/tweets/:id",
+  ];
 
   const isHandledByThisMiddleware = endpoints.some((endpoint) => {
     const pattern = new UrlPattern(endpoint);
@@ -47,6 +52,7 @@ export default defineEventHandler(async (event) => {
     //     statusMessage: user.id,
     //   })
     // );
+    
     event.context.auth = { user };
   } catch (error) {
     return error;

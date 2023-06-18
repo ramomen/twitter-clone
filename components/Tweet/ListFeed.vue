@@ -1,24 +1,39 @@
 <template>
   <div>
-    <h1>list feed</h1>
+    <div v-if="isEmptyArray">
+      <p class="text-center text-gray-500">No tweets yet.</p>
+    </div>
 
-    <ul>
-      <TweetFormItem
-        v-for="tweet in props.tweets"
-        :tweet="tweet"
-        :key="tweet.id"
-      >
+    <div
+      v-else
+      class="pb-4 border-b hover:bg-gray-100 cursor-pointer dark:hover:bg-dim-300"
+      :class="{ twitterBorderColor, defaultTransition }"
+      v-for="tweet in props.tweets"
+      :key="tweet.id"
+      @click="redirect(tweet)"
+    >
+      <TweetItem :tweet="tweet" compact>
         {{ tweet.text }}
-      </TweetFormItem>
-    </ul>
+      </TweetItem>
+    </div>
   </div>
 </template>
 
 <script setup>
+const { twitterBorderColor, defaultTransition } = useTailwindConfig();
+
 const props = defineProps({
   tweets: {
     type: Array,
     required: true,
   },
 });
+
+const isEmptyArray = computed(() => {
+  return props.tweets.length === 0;
+});
+
+const redirect = (tweet) => {
+  navigateTo(`/status/${tweet.id}`);
+};
 </script>

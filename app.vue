@@ -12,7 +12,7 @@
           <!-- Left Sidebar -->
           <div class="hidden md:block xs-col-span-1 xl:col-span-2">
             <div class="sticky top-0">
-              <SidebarLeft />
+              <SidebarLeft @on-tweet="handleOpenTweetModal" />
             </div>
           </div>
 
@@ -33,6 +33,14 @@
       </div>
 
       <AuthPage v-else />
+
+      <UIModal :isOpen="postTweetModal" @on-close="handleModelClose">
+        <TweetForm
+          placeholder="What's happening?"
+          :user="user"
+          @on-success="handleFormSuccess"
+        />
+      </UIModal>
     </div>
   </div>
 </template>
@@ -44,7 +52,23 @@ const { useAuthUser, initAuth, useAuthLoading } = useAuth();
 
 const isAuthLoading = useAuthLoading();
 
+const { closePostTweetModel, usePostTweetModal, openPostTweetModal } =
+  useTweet();
+
 const user = useAuthUser();
+const postTweetModal = ref(false);
+
+const handleFormSuccess = (tweet) => {
+  closePostTweetModel();
+};
+
+const handleModelClose = () => {
+  closePostTweetModel();
+};
+
+const handleOpenTweetModal = () => {
+  openPostTweetModal();
+};
 
 // it's important to call initAuth before mounting the app
 onBeforeMount(() => {
