@@ -1,13 +1,22 @@
 export default () => {
   const usePostTweetModal = () => useState("post_tweet_modal", () => false);
+  const useReplyTweet = () => useState("reply_tweet", () => null);
 
   const closePostTweetModal = () => {
     const postTweetModal = usePostTweetModal();
     postTweetModal.value = false;
   };
-  const openPostTweetModal = () => {
+
+  const setReplyTo = (tweet) => {
+    const replyTweet = useReplyTweet();
+    replyTweet.value = tweet;
+  };
+
+  const openPostTweetModal = (tweet = null) => {
     const postTweetModal = usePostTweetModal();
     postTweetModal.value = true;
+
+    setReplyTo(tweet);
   };
 
   const postTweet = (formData) => {
@@ -26,11 +35,12 @@ export default () => {
     });
   };
 
-  const getHomeTweets = () => {
+  const getTweets = (params = {}) => {
     return new Promise((resolve, reject) => {
       try {
         const response = useFetchApi("/api/tweets", {
           method: "GET",
+          params,
         });
 
         console.log(response);
@@ -57,10 +67,12 @@ export default () => {
 
   return {
     postTweet,
-    getHomeTweets,
+    getTweets,
     getTweetById,
     closePostTweetModal,
     usePostTweetModal,
     openPostTweetModal,
+    usePostTweetModal,
+    useReplyTweet,
   };
 };

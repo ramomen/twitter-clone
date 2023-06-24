@@ -20,14 +20,16 @@ const { getTweetById } = useTweet();
 const { useAuthUser } = useAuth();
 const user = useAuthUser();
 
-const getTweetIdFromRoute = () => {
-  return useRoute().params.id;
-};
 
 watch(
   () => useRoute().fullPath,
   () => getTweet()
 );
+
+const getTweetIdFromRoute = () => {
+  return useRoute().params.id;
+};
+
 
 const getTweet = async () => {
   loading.value = true;

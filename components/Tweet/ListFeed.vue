@@ -34,6 +34,7 @@ const isEmptyArray = computed(() => {
 });
 
 const redirect = (tweet) => {
-  navigateTo(`/status/${tweet.id}`);
+  // navigateTo(`/status/${tweet.id}`);
+  window.location.href = `/status/${tweet.id}`;
 };
 </script>
